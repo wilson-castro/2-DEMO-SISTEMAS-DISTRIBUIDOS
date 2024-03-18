@@ -1,12 +1,17 @@
 from datetime import datetime
 from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Lista interna para armazenar informações de requisições
 requisicoes = []
 
 @app.route('/armazenar', methods=['POST'])
+@cross_origin()
 def armazenar():
   """
   Rota para armazenar informações de requisições.
@@ -36,6 +41,7 @@ def armazenar():
   return jsonify(requisicoes)
 
 @app.route('/obter', methods=['GET'])
+@cross_origin()
 def obter():
   """
   Rota para obter a lista completa de informações de requisições.
