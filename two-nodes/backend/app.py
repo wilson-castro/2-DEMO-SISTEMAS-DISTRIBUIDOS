@@ -1,3 +1,4 @@
+import socket
 from datetime import datetime
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
@@ -23,9 +24,11 @@ def armazenar():
   # Obter dados passados na requisição
   dados_requisicao = request.get_json()
 
-    # Extrair informações da requisição
+  # Extrair informações da requisição
   hora_envio = datetime.now()
   ip_origem = request.remote_addr
+
+  dados_requisicao['hostname'] = socket.gethostname()
 
   # Criar objeto com informações da requisição
   dados = {

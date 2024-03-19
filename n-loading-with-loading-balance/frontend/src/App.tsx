@@ -7,7 +7,7 @@ function App() {
   const [logs, setLogs] = useState<ILog[]>([]);
 
   const getLogs = () => {
-    fetch('http://localhost:5000/armazenar', {
+    fetch('http://localhost/api/armazenar', {
       mode: 'cors',
       method: "POST",
       body: JSON.stringify({}),
@@ -39,9 +39,9 @@ function App() {
     <Container>
       <Box mt="10rem">
         <Paper elevation={6}>
-          <Box bgcolor="#263d74" p="8px" sx={{ borderRadius: "8px 0"}}>
-            <Typography variant="h5" color="#e7eaf2">
-              🗂️ Logs de Requisições • Nós simples
+          <Box bgcolor="#a62431" p="8px" sx={{ borderRadius: "8px 0"}}>
+            <Typography variant="h5" color="#fbebef">
+              🗂️ Logs de Requisições • Nós Balancamento de Carga
             </Typography>
           </Box>
           <Box mt="10px"p="20px">
