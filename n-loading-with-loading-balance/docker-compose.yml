@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./backend
+    ports:
+      - 5001
+    links:
+      - db
+    restart: always
+
+  db:
+    image: mongo:latest
+    hostname: mdb_simple_nodes
+    environment:
+      - MONGO_INITDB_DATABASE=logs_db
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    volumes:
+      - ./db/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+    ports:
+      - 27017:27017
+
+  nginx:
+    build: nginx
+    ports:
+      - 80:80
+    depends_on:
+      - app
+    restart: always
+
+  # client:
+  #   build:
+  #     context: ./frontend
+  #   ports:
+  #     - "3000:3000"
+  #   restart: always
