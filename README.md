@@ -26,10 +26,10 @@ O projeto está estruturado da seguinte forma:
 ## Como Executar
 
 ### Demonstração 1
-Para executar a Demonstração 1, navegue até a pasta `two-nodes/` e execute o comando `docker-compose up -d`.
+Para executar a Demonstração 1, navegue até a pasta `two-nodes/` e execute o comando `ocker-compose up --build -d`.
 
 ### Demonstração 2
-Para executar a Demonstração 2, navegue até a pasta `n-loading-with-loading-balance/` e execute o comando `docker-compose up -d --scale app-5`.
+Para executar a Demonstração 2, navegue até a pasta `n-loading-with-loading-balance/` e execute o comando `ocker-compose up --build -d --scale app=5`.
 
 ### Ambas
 Para executar ambas as demonstrações simultaneamente, navegue até a pasta raiz onde está localizado o arquivo `run.bash` e execute `sh run.bash`.
