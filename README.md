@@ -2,7 +2,10 @@
 
 Este projeto consiste em demonstrar duas arquiteturas de sistemas distribuídos, com o objetivo de ilustrar a diferença entre uma arquitetura com sobrecarga e outra que distribui o trabalho em várias instâncias para evitar essa sobrecarga.
 
+
 ## Arquitetura 1: Ambiente de Dois Nós
+
+![Print do Projeto](https://raw.githubusercontent.com/wilson-castro/DEMONSTRA-O-SISTEMAS-DISTRIBUIDOS/main/images/sd-demos.jpeg)
 
 Nesta arquitetura, temos um frontend e um backend. O cliente frontend faz uma série de requisições para o backend, que as processa, salva os registros em uma lista em memória e retorna todos os logs de registro de requisições para o frontend. O frontend então exibe esses registros em uma tabela.
 
