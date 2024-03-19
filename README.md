@@ -38,9 +38,13 @@ Para executar ambas as demonstrações simultaneamente, navegue até a pasta rai
 
 ## 🐌 Arquitetura 1: Ambiente de Dois Nós
 
+![Print do Projeto](https://raw.githubusercontent.com/wilson-castro/DEMONSTRA-O-SISTEMAS-DISTRIBUIDOS/main/images/arquitetura1.png)
+
 Nesta arquitetura, temos um frontend e um backend. O cliente frontend faz uma série de requisições para o backend, que as processa, salva os registros em uma lista em memória e retorna todos os logs de registro de requisições para o frontend. O frontend então exibe esses registros em uma tabela.
 
 ## 🐇 Arquitetura 2: Distribuição de Carga em Múltiplas Instâncias
+
+![Print do Projeto](https://raw.githubusercontent.com/wilson-castro/DEMONSTRA-O-SISTEMAS-DISTRIBUIDOS/main/images/arquitetura2.png)
 
 Nesta arquitetura, introduzimos um proxy NGINX para distribuir a carga de trabalho em cinco instâncias do backend. Os registros de logs são armazenados em um banco de dados MongoDB.
 
