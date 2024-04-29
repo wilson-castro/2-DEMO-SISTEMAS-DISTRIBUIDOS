@@ -88,12 +88,7 @@ function TablePaginationActions(props: Readonly<TablePaginationActionsProps>) {
 }
 
 const StyledTableRow = styled(TableRow)`
-  &:nth-of-type(odd) {
-    background-color: ${({ theme }) => theme.palette.action.hover};
-  }
-  &:nth-of-type(even) {
-    background-color: "grey";
-  }
+
 `;
 
 export interface CustomPaginationActionsTable {
@@ -103,6 +98,8 @@ export interface CustomPaginationActionsTable {
 export default function CustomPaginationActionsTable({
   data,
 }: Readonly<CustomPaginationActionsTable>) {
+  const [hostColors, setHostColors] = React.useState<{ host: string;  color: string }[]>([]);
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -120,6 +117,35 @@ export default function CustomPaginationActionsTable({
     setPage(0);
   };
 
+  React.useEffect(() => { 
+    const uniqueLogsPerHost = data.reduce((acc, log) => {
+      const dataJson = JSON.parse(log.data);
+      const logHostName = dataJson.hostname;
+      if (acc.includes(logHostName)) return acc;
+      return [...acc, logHostName];
+    }, [] as string[]);
+
+    const hostNotInColors = uniqueLogsPerHost.filter((host) => {
+      return !hostColors.find((hostColor) => hostColor.host === host);
+    });
+
+    const colors = hostNotInColors.map((host) => {
+      return {
+        host,
+        color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
+      };
+    });
+
+    setHostColors(oldColors => ([...oldColors, ...colors]));
+  }, [data]);
+
+  const getColorForHost = (data: string) => { 
+    const dataJson = JSON.parse(data);
+    const host = dataJson.hostname;
+    const hostColor = hostColors.find((hostColor) => hostColor.host === host);
+    return hostColor?.color || "grey";
+  };
+
   return (
     <TableContainer>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
@@ -128,23 +154,23 @@ export default function CustomPaginationActionsTable({
             ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : data
           ).map((row) => (
-            <StyledTableRow key={row.hora_envio}>
+            <StyledTableRow
+              sx={{ bgcolor: getColorForHost(row.data), opacity: 0.8 }}
+            >
               <TableCell component="th" style={{ width: 30 }} scope="row">
                 {row.ip_origem}
               </TableCell>
               <TableCell style={{ width: 210 }}>
                 {new Date(row.hora_envio).toLocaleString()}
               </TableCell>
-              <TableCell align="left">
-                {row.data}
-              </TableCell>
+              <TableCell align="left">{row.data}</TableCell>
             </StyledTableRow>
           ))}
         </TableBody>
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'Todos', value: -1 }]}
+              rowsPerPageOptions={[5, 10, 25, { label: "Todos", value: -1 }]}
               colSpan={3}
               count={data.length}
               rowsPerPage={rowsPerPage}
