@@ -88,12 +88,7 @@ function TablePaginationActions(props: Readonly<TablePaginationActionsProps>) {
 }
 
 const StyledTableRow = styled(TableRow)`
-  &:nth-of-type(odd) {
-    background-color: ${({ theme }) => theme.palette.action.hover};
-  }
-  &:nth-of-type(even) {
-    background-color: "grey";
-  }
+
 `;
 
 export interface CustomPaginationActionsTable {
@@ -128,23 +123,21 @@ export default function CustomPaginationActionsTable({
             ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : data
           ).map((row) => (
-            <StyledTableRow key={row.hora_envio}>
+            <StyledTableRow key={row.hora_envio} sx={{ bgcolor: "#263d744f" }}>
               <TableCell component="th" style={{ width: 30 }} scope="row">
                 {row.ip_origem}
               </TableCell>
               <TableCell style={{ width: 210 }}>
                 {new Date(row.hora_envio).toLocaleString()}
               </TableCell>
-              <TableCell align="left">
-                {row.data}
-              </TableCell>
+              <TableCell align="left">{row.data}</TableCell>
             </StyledTableRow>
           ))}
         </TableBody>
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'Todos', value: -1 }]}
+              rowsPerPageOptions={[5, 10, 25, { label: "Todos", value: -1 }]}
               colSpan={3}
               count={data.length}
               rowsPerPage={rowsPerPage}
